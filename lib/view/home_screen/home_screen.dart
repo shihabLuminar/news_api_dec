@@ -35,13 +35,14 @@ class _HomeScreenState extends State<HomeScreen> {
               itemCount: providerObj.articles.length,
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
               itemBuilder: (context, index) => CustomNewsCard(
-                imageUrl: providerObj.articles[index].urlToImage ?? "",
-                author: providerObj.articles[index].author ?? "",
-                category: providerObj.articles[index].source?.name ?? "",
-                title: providerObj.articles[index].title ?? "",
-                dateTime: DateFormat("dd MMM yyyy ")
-                    .format(providerObj.articles[index].publishedAt!),
-              ),
+                  imageUrl: providerObj.articles[index].urlToImage ?? "",
+                  author: providerObj.articles[index].author ?? "",
+                  category: providerObj.articles[index].source?.name ?? "",
+                  title: providerObj.articles[index].title ?? "",
+                  dateTime: providerObj.articles[index].publishedAt != null
+                      ? DateFormat("dd MMM yyyy ")
+                          .format(providerObj.articles[index].publishedAt!)
+                      : ""),
               separatorBuilder: (context, index) => Divider(
                 thickness: .5,
                 indent: 30,
