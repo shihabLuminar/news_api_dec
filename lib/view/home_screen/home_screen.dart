@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -36,6 +38,29 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Scaffold(
           body: Column(
             children: [
+              CarouselSlider(
+                  options: CarouselOptions(height: 400.0),
+                  items: List.generate(
+                      providerObj.topheadlinesList.length,
+                      (index) => Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                color: Colors.grey),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: CachedNetworkImage(
+                                width: double.infinity,
+                                fit: BoxFit.cover,
+                                imageUrl: providerObj
+                                        .topheadlinesList[index].urlToImage ??
+                                    "",
+                                placeholder: (context, url) => const Center(
+                                    child: CircularProgressIndicator()),
+                                errorWidget: (context, url, error) =>
+                                    const Icon(Icons.error),
+                              ),
+                            ),
+                          ))),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(

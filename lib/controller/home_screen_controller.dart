@@ -63,7 +63,7 @@ class HomeScreenController with ChangeNotifier {
     topHeadlinesLoading = true;
     notifyListeners();
     final url = Uri.parse(
-        "https://newsapi.org/v2/top-headlines?country=us&apiKey=742488509a4f4f23b93e7ac3afc24cad");
+        "https://newsapi.org/v2/top-headlines?country=in&apiKey=742488509a4f4f23b93e7ac3afc24cad");
 
     final response = await http.get(url);
     if (response.statusCode == 200) {
