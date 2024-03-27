@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_api_dec/controller/home_screen_controller.dart';
+import 'package:news_api_dec/controller/search_screen_controller.dart';
 import 'package:news_api_dec/view/home_screen/home_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -16,9 +17,13 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => HomeScreenController(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => SearchScreenController(),
         )
       ],
       child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: HomeScreen(),
       ),
     );
