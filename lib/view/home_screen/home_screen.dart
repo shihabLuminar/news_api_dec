@@ -36,31 +36,61 @@ class _HomeScreenState extends State<HomeScreen> {
       length: 4,
       child: SafeArea(
         child: Scaffold(
+          appBar: AppBar(
+            title: Text("News App"),
+            centerTitle: true,
+            titleTextStyle: TextStyle(
+                fontWeight: FontWeight.bold, color: Colors.blue, fontSize: 20),
+            actions: [
+              IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.search_sharp,
+                    size: 30,
+                    color: Colors.black,
+                  ))
+            ],
+          ),
           body: Column(
             children: [
               CarouselSlider(
-                  options: CarouselOptions(height: 400.0),
-                  items: List.generate(
-                      providerObj.topheadlinesList.length,
-                      (index) => Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                color: Colors.grey),
-                            child: ClipRRect(
+                options: CarouselOptions(
+                  height: 300,
+                  aspectRatio: 16 / 9,
+                  viewportFraction: 0.8,
+                  initialPage: 0,
+                  enableInfiniteScroll: true,
+                  reverse: false,
+                  autoPlay: true,
+                  autoPlayInterval: Duration(seconds: 3),
+                  autoPlayAnimationDuration: Duration(milliseconds: 800),
+                  autoPlayCurve: Curves.easeInToLinear,
+                  enlargeCenterPage: true,
+                  enlargeFactor: 0.3,
+                  scrollDirection: Axis.horizontal,
+                ),
+                items: List.generate(
+                    providerObj.topheadlinesList.length,
+                    (index) => Container(
+                          decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(12),
-                              child: CachedNetworkImage(
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                                imageUrl: providerObj
-                                        .topheadlinesList[index].urlToImage ??
-                                    "",
-                                placeholder: (context, url) => const Center(
-                                    child: CircularProgressIndicator()),
-                                errorWidget: (context, url, error) =>
-                                    const Icon(Icons.error),
-                              ),
+                              color: Colors.grey),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: CachedNetworkImage(
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                              imageUrl: providerObj
+                                      .topheadlinesList[index].urlToImage ??
+                                  "",
+                              placeholder: (context, url) => const Center(
+                                  child: CircularProgressIndicator()),
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
                             ),
-                          ))),
+                          ),
+                        )),
+              ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
