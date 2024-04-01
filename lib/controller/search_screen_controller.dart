@@ -25,4 +25,9 @@ class SearchScreenController with ChangeNotifier {
     isLoading = false;
     notifyListeners();
   }
+
+  // void cleardata() {
+  //   searchedArticlesResult = [];
+  //   notifyListeners();
+  // }
 }

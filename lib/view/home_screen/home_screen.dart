@@ -5,7 +5,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:news_api_dec/controller/home_screen_controller.dart';
-import 'package:news_api_dec/view/home_screen/widgets/custom_news_card.dart';
+import 'package:news_api_dec/controller/search_screen_controller.dart';
+import 'package:news_api_dec/view/globla_widgets/custom_news_card.dart';
+import 'package:news_api_dec/view/news_details_screen/news_details_screen.dart';
 import 'package:news_api_dec/view/search_screen/serach_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -45,7 +47,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => SearchScreen(),
+                        builder: (context) => ChangeNotifierProvider(
+                          create: (context) => SearchScreenController(),
+                          child: SearchScreen(),
+                        ),
                       ));
                 },
                 icon: Icon(
@@ -144,23 +149,36 @@ class _HomeScreenState extends State<HomeScreen> {
                             padding: EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 20),
                             itemBuilder: (context, index) => CustomNewsCard(
-                                imageUrl: providerObj
-                                        .articlesByCategory[index].urlToImage ??
-                                    "",
-                                author:
-                                    providerObj.articlesByCategory[index].author ??
-                                        "",
-                                category: providerObj.articlesByCategory[index]
-                                        .source?.name ??
-                                    "",
-                                title: providerObj.articlesByCategory[index].title ??
-                                    "",
-                                dateTime: providerObj.articlesByCategory[index]
-                                            .publishedAt !=
-                                        null
-                                    ? DateFormat("dd MMM yyyy ")
-                                        .format(providerObj.articlesByCategory[index].publishedAt!)
-                                    : ""),
+                              imageUrl: providerObj
+                                      .articlesByCategory[index].urlToImage ??
+                                  "",
+                              author: providerObj
+                                      .articlesByCategory[index].author ??
+                                  "",
+                              category: providerObj
+                                      .articlesByCategory[index].source?.name ??
+                                  "",
+                              title:
+                                  providerObj.articlesByCategory[index].title ??
+                                      "",
+                              dateTime: providerObj.articlesByCategory[index]
+                                          .publishedAt !=
+                                      null
+                                  ? DateFormat("dd MMM yyyy ").format(
+                                      providerObj.articlesByCategory[index]
+                                          .publishedAt!)
+                                  : "",
+                              onCardTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => NewsDetailsScreen(
+                                        selectedArticle: providerObj
+                                            .articlesByCategory[index],
+                                      ),
+                                    ));
+                              },
+                            ),
                             separatorBuilder: (context, index) => Divider(
                               thickness: .5,
                               indent: 30,
